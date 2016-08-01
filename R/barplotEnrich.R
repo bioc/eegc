@@ -25,7 +25,7 @@ barplotEnrich = function (height, x = "Count", colorBy = "p.adjust", top = 5,
     x <- "Count"
   }
   Description <- Count <- NULL
-  df <- fortify(object, top = top, by = x,
+  df <- fortify(object, showCategory = top, by = x,
                 ...)
   p <- ggplot(df, aes_string(x = "Description", y = x))
   p <- p + geom_bar(stat = "identity") + coord_flip() + theme_dose(font.size)
