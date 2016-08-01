@@ -90,7 +90,7 @@ library(eegc)
 
 \section{Preparing Input Data}
 
-\eegc{} takes a gene expression file (.txt or .csv) as input; this file provides the expression data (with genes in rows and samples in columns) screened by microarray or RNA-seq (in FPKM -Fragments Per Kilobase of transcript per Million mapped reads- or counts). Samples belong to three types of samples: original cells (input), induced cells (ouput), and primary cells (output target).
+\eegc{} takes an input of gene expression data (with genes in rows and samples in columns) screened by microarray or RNA-seq (in FPKM -Fragments Per Kilobase of transcript per Million mapped reads- or counts). Samples belong to three types of samples: original cells (input), induced cells (ouput), and primary cells (output target).
 In this vignette, we used human RNA-seq expression FPKMs data published by Sandler et Al. as example data. Here, human Dermal Microvascular Endothelial Cells (DMEC) were transduced with transcription factors and cultured in vascular niche to induce the growth of haematopoietic stem and multipotent progenitor cells (rEChMPP) compared with the target primary Cord Blood cells (CB).
 
 <<load_data, eval=TRUE>>=
@@ -130,7 +130,7 @@ dim(SandlerFPKM)
 
 
 \section{Gene Categorization}
-Gene (\Rcode{g}) categorization is achieved through the pair-wise comparisons (Expression Difference, ED) as defined in eq.~\ref{eq:eq1}, a difference of \Rcode{g} average expression in  A and B samples) among the three types of samples as shown in Table \ref{tab:geneCategorization}, and the ratio of such differences (\Rcode{EDg} ratio, eq.~\ref{eq:eq2}) .
+Gene (\Rcode{g}) categorization is achieved through the pair-wise comparisons (Expression Difference, ED) as defined in eq.~\ref{eq:eq1}, a difference of \Rcode{g} average expression in  A and B samples among the three types of samples as shown in Table \ref{tab:geneCategorization}, and the ratio of such differences (\Rcode{EDg} ratio, eq.~\ref{eq:eq2}) .
 
 \begin{equation}\label{eq:eq1}
   ED_g(A,B) = \overline{E_g} \textrm{ in A} - \overline{E_g} \textrm{ in B}
@@ -140,9 +140,9 @@ Gene (\Rcode{g}) categorization is achieved through the pair-wise comparisons (E
   ED_g \textrm{ ratio} = \frac{ED_g(rEChMPP, DMEC)}{ED_g(CB, DMEC)}
 \end{equation}
 
-The five gene categories are first defined by the ED patterns observed among three pair-wise comparisons as shown in the ED columns of Table \ref{tab:geneCategorization}.  Based on these definitions, categories \emph{Reserved} and \emph{Over} are undistinguishable, but become clearly distinct by evaluation of the ED ratios (eq.~\ref{eq:eq2}) in the corresponding column of Table \ref{tab:geneCategorization}).
+The five gene categories are first defined by the ED patterns observed among three pair-wise comparisons as shown in the ED columns of Table \ref{tab:geneCategorization}.  Based on these definitions, categories \emph{Reserved} and \emph{Over} are undistinguishable, but become clearly distinct by evaluation of the ED ratios (eq.~\ref{eq:eq2}) in the corresponding column of Table \ref{tab:geneCategorization}.
 
-At this stage, \emph{Inactive} and \emph{Successful} ED ratios are, conveniently, around 0 and 1, however, they cover a relatively wide range of values, with queues overlapping with the \emph{Over} and \emph{Insufficient} categories for \emph{Successful} genes and with reverse and \emph{Insufficient} for \emph{Inactive} genes. To gain an accurate and practical categorization (operational in term of indications as to which genes need attention in the engineering process) \emph{Inactive} and \emph{Successful} genes boundaries were set more stringently around the intuitive peaks of 0 and 1, by shrinking the ED ratio boundaries to what we name operational ranges in Table \ref{tab:geneCategorization}, which correspond to the 5th and 95th quantile of the ED-ranked \emph{Successful} and \emph{Inactive} genes.
+At this stage, \emph{Inactive} and \emph{Successful} ED ratios are, conveniently, around 0 and 1, however, they cover a relatively wide range of values, with queues overlapping with the \emph{Over} and \emph{Insufficient} categories for \emph{Successful} genes, and with \emph{Reverse} and \emph{Insufficient} for \emph{Inactive} genes. To gain an accurate and practical categorization (operational in term of indications as to which genes need attention in the engineering process), \emph{Inactive} and \emph{Successful} genes boundaries were set more stringently around the intuitive peaks of 0 and 1, by shrinking the ED ratio boundaries to what we name operational ranges in Table \ref{tab:geneCategorization}, which correspond to the 5th and 95th quantile of the ED-ranked \emph{Successful} and \emph{Inactive} genes.
 
 \newpage
 \begin{table}[]
@@ -288,13 +288,13 @@ To describe the significantly enriched functional terms in each category (Figure
 <<barplotEnrich,eval=TRUE,dev="pdf",fig.width=6,fig.height=3>>=
 # plot only the "enrichResult" of Inactive category
 inactive = goenrichraw[[2]]
-barplotEnrich(inactive, top =15, color ="#2c7bb6", title = "Inactive")
+barplotEnrich(inactive, top =5, color ="#2c7bb6", title = "Inactive")
 @
 
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth]{figure/barplotEnrich-1}
-\caption{Example of top 15 significantly enriched Gene Ontology terms in the \emph{Inactive} category. The shade of colors represents enrichment p-values and bar length represents the count of genes involved in each GO term.}
+\caption{Example of top 5 significantly enriched Gene Ontology terms in the \emph{Inactive} category. The shade of colors represents enrichment p-values and bar length represents the count of genes involved in each GO term.}
 \label{fig:barplotEnrich}
 \end{figure}
 
@@ -323,8 +323,9 @@ plotGOgraph(inactive)
 This analysis helps to evaluate the engineered cells at the functional level by identifying the non-activated functions that play important roles in primary cells but, being enriched in the \emph{Inactive} genes categories, lack in the engineered cells.
 
 \section{Cell/Tissue-specific Enrichment Analysis}
+\label{sec:tissueEnrich}
 
-The five gene categories represent different reprogramming progress or directions of the original cells towards primary cells. These progresses or directions can also be explored, in addition to the functional role investigated above, by cell/tissue (C/T)-specific analysis. Downstream of a successful cellular engineering process, the expression of somatic cell-specific genes will be down-regulated while the expression of primary cell-specific genes will be up-regulated.  So ideally each of the five gene categories is mainly composed by two gene types: somatic or primary genes.  By the C/T-specific analysis, assuming the most extreme values of expression represent effective up or down regulation and compute based on this, we can explore which C/T-specific genes results the success or failure of the engineering process.
+The five gene categories represent different reprogramming progresses or directions of the original cells towards primary cells. These progresses or directions can also be explored, in addition to the functional role investigated above, by cell/tissue (C/T)-specific analysis. Downstream of a successful cellular engineering process, the expression of somatic cell-specific genes will be down-regulated while the expression of primary cell-specific genes will be up-regulated.  So ideally each of the five gene categories is mainly composed by two gene types: somatic or primary genes.  By the C/T-specific analysis, assuming the most extreme values of expression represent effective up or down regulation and compute based on this, we can explore which C/T-specific genes results the success or failure of the engineering process.
 
 The database Gene Enrichment Profiler, containing the expression profiles of ~12,000 genes with NCBI GeneID entries across 126 primary human cells/tissues in 30 C/T groups, is used for this C/T-specific analysis \cite{Benita2010}.
 
@@ -369,7 +370,7 @@ The package also build the gene-gene regulation network for each category based 
 
 \subsection{CellNet-based Cell/Tissue-specific analysis}
 
-Construction is done by checking the percentage of overlapping genes in each category with the genes involved in each  C/T-specific GRN by the dotPercentage function (Figure~\ref{fig:dotpercentage}) and then performing a C/T-specific enrichment analysis, as in the \hyperref[sec:Cell/Tissue-specific Enrichment Analysis]{Cell/Tissue-specific analysis} section, based on these gene sets.
+Construction is done by checking the percentage of overlapping genes in each category with the genes involved in each  C/T-specific GRN by the dotPercentage function (Figure~\ref{fig:dotpercentage}) and then performing a C/T-specific enrichment analysis, as in the \hyperref[sec:tissueEnrich]{Cell/Tissue-specific Enrichment Analysis} section, based on these gene sets.
 
 <<dotpercentage, eval = TRUE, echo=TRUE,dev="pdf",fig.width=7,fig.height=5>>=
 #load the C/T-specific genes in 16 cells/tissues
@@ -398,7 +399,7 @@ cellnetheatmap = heatmapPlot(cellnetenrich,
 
 \subsection{Cell/Tissue-specific Transcription Factor Analysis}
 
-In our specific example, the observation that some \emph{Inactive} genes are enriched in the primary cells, represents an important information regarding the transcription factors regulating these genes, TFs that are that are potentially necessary for a successful cellular engineering. Therefore in a second step, we extract the cell- and tissue-specific transcription factors and their down-stream regulated genes into gene sets, and apply the gene set enrichment analysis on the five gene categories.  A heatmap can be plotted to compare the C/T-specific transcription factors enriched by different categories just as shown in Figure~\ref{fig:tfheatmap}.
+In our specific example, the observation that some \emph{Inactive} genes are enriched in the primary cells, represents an important information regarding the transcription factors regulating these genes, TFs that are potentially necessary for a successful cellular engineering. Therefore in a second step, we extract the cell- and tissue-specific transcription factors and their down-stream regulated genes into gene sets, and apply the gene set enrichment analysis on the five gene categories.  A heatmap can be plotted to compare the C/T-specific transcription factors enriched by different categories just as shown in Figure~\ref{fig:tfheatmap}.
 
 <<tfheatmap,eval=TRUE,echo=TRUE,fig.width=5,fig.height=6,dev="pdf">>=
 # load transcription factor regulated gene sets from on CellNet data
@@ -418,7 +419,7 @@ tfheatmap = heatmapPlot(tfenrich, top = 5,
 
 \subsection{Network Topological Analysis and Visualization}
 
-Finally, we introduce the topological analysis for the C/T-specific gene regulatory networks including genes in each of five categories, by calculating the degree, closeness, betweenness and stress centrality with the \CRANpkg{igraph} package \cite{Nepusz2006} and \CRANpkg{sna} [citation]. Given an input of genes and their centrality, \Rfunction{grnPlot} function plots the regulatory network with these genes as nodes and centrality as node size to represent their importance in the network (Figure~\ref{fig:grnPlot}).
+Finally, we introduce the topological analysis for the C/T-specific gene regulatory networks including genes in each of five categories, by calculating the degree, closeness, betweenness and stress centrality with the \CRANpkg{igraph} package \cite{Nepusz2006} and \CRANpkg{sna} \cite{Carter2014}. Given an input of genes and their centrality, \Rfunction{grnPlot} function plots the regulatory network with these genes as nodes and centrality as node size to represent their importance in the network (Figure~\ref{fig:grnPlot}).
 
 <<networkanalyze,eval = TRUE,echo=TRUE>>=
 # load the CellNet GRN
@@ -454,6 +455,7 @@ grnPlot(grn.data = human.grn[[tissue]], cate.gene = cate.gene, filter = TRUE,
 The analysis clarifies the importance of genes, especially the transcription factors, in terms of their ability to connect other genes in a network. Hence, this provides a way to predict the relevance of molecules in terms of their topological centrality, and offer information regarding potential transcription factors to be used for an improvement of cellular engineering.
 
 \newpage
+
 \begin{thebibliography}{1}
 \bibitem{Sandler2014}
 Sandler, V.M., et al.,
@@ -516,6 +518,11 @@ Morris, S.A., et al.,
 Nepusz, G.C.a.T.,
 \newblock The igraph software package for complex network research.
 \newblock {\em InterJournal}, 2006. Complex Systems: p. 1695.
+
+\bibitem{Carter2014}
+Carter T. Butts,
+\newblock sna: Tools for Social Network Analysis.
+\newblock {\em R package version 2.3-2}, 2014.
 
 \end{thebibliography}
 
