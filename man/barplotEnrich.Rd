@@ -22,8 +22,18 @@ font.size = 12, title = "", color = NULL,...)
 
 \item{...}{see parameters in \code{\link[ggplot2]{fortify}} function.}
 }
+\value{
+bar plot of enrichment results
+}
 \description{
 This function is revised from the \code{\link[DOSE]{barplot.enrichResult}} function DOSE package, and used to
 perform a barplot of the enrichResult object.
+}
+\examples{
+\dontrun{
+  # plot the "enrichResult" of Inactive category
+  inactive = goenrichraw[[2]]
+  barplotEnrich(inactive, top =5, color ="#2c7bb6", title = "Inactive")
+  }
 }
 

@@ -8,6 +8,25 @@
 #' "BH", "BY", "fdr", "none", default to "fdr", see details in \code{\link[stats]{p.adjust}}.
 #' @return A list of enrichment results for the five gene categories.
 #' @export
+#' @examples
+#' # load the cell/tissue-specific genes
+#' data(tissueGenes)
+#' # load the mapping file of cells/tissues to grouped cells/tissues
+#' data(tissueGroup)
+#'
+#' # get the background genes
+#' data(expr.filter)
+#' genes = rownames(expr.filter)
+#' # enrichment analysis for the five gene categories
+#' data(cate.gene)
+#' tissueenrich = enrichment(cate.gene = cate.gene, annotated.gene = tissueGenes,
+#'                          background.gene = genes, padjust.method = "fdr")
+#' # select a group of cells/tissues
+#' tissueGroup.selec = c("stem cells","B cells","T cells","Myeloid","Endothelial CD105+")
+#' tissues.selec = tissueGroup[tissueGroup[,"Group"] %in% tissueGroup.selec,c(2,3)]
+#' # tissuetable = heatmapPlot(tissueenrich, terms = tissues.selec, GO=FALSE,
+#' #                           annotated_row = TRUE,annotation_legend = TRUE,
+#' #                           main = "Tissue-specific enrichment")
 
 enrichment = function(cate.gene,annotated.gene,background.gene, padjust.method = "fdr"){
   if(!is.list(cate.gene)){
@@ -80,7 +99,7 @@ enrichment = function(cate.gene,annotated.gene,background.gene, padjust.method =
     cols = paste(index,"Count",sep="")
     data$P.value = apply(data[,cols], 1, function(x)
       phyper(as.numeric(x[cols[2]])-1,as.numeric(x[cols[1]]),
-             gene.num -as.numeric(x[cols[1]]),diff.num,lower.tail=F))
+             gene.num -as.numeric(x[cols[1]]),diff.num,lower.tail=FALSE))
     data$p.adjust = p.adjust(data$P.value, method = method)
     data = data[with(data, order(P.value)), ]
     return(data)

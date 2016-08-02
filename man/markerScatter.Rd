@@ -27,11 +27,25 @@ col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE, legend.label
 
 \item{...}{other parameters in \code{\link[graphics]{plot}}.}
 }
+\value{
+plot with gene expression profile.
+}
 \description{
 Generates an expression profile of each gene catetory in one sample against another, alternatively plot the regression
 line from linear modeling fitting.
 }
 \details{
 Visualization of gene expression in the five categories under each pair-wised comparison.
+}
+\examples{
+#load the marker genes of somatic and primary cells
+data(markers)
+data(expr.filter)
+#scatterplot
+col = c("#abd9e9", "#2c7bb6", "#fee090", "#d7191c", "#fdae61")
+markerScatter(expr = expr.filter, log = TRUE, samples = c("CB", "DMEC"),
+              cate.gene = cate.gene[2:4], markers = markers, col = col[2:4],
+              xlab = expression('log'[2]*' expression in CB (target)'),
+             ylab = expression('log'[2]*' expression in DMEC (input)'),main = "")
 }
 

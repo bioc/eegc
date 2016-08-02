@@ -44,4 +44,11 @@ heatmap plot and the terms with p.values for the heatmap
 \description{
 This function plot the significantly enriched terms in a heatmap by calling \pkg{pheatmap} package.
 }
+\examples{
+# plot the enrichment results by the five gene categories
+data(goenrich)
+heatmaptable = heatmapPlot(goenrich, GO = TRUE, top = 5, filter = FALSE,
+                           main = "Gene ontology enrichment",
+                           display_numbers =  FALSE)
+}
 

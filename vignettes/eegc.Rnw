@@ -279,6 +279,7 @@ class(goenrichraw[[1]])
 # GO enrichment
 goenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
                           GO = TRUE, KEGG = FALSE, raw = FALSE)
+# KEGG enrichment
 keggenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
                             GO = FALSE, KEGG = TRUE, raw = FALSE)
 @

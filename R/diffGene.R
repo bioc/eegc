@@ -26,6 +26,21 @@
 #' a list with differential gene names for each pair-wise comparison;
 #' a data frame with filtered/unfiltered gene expression.
 #' @export
+#' @examples
+#' data(SandlerFPKM)
+#'
+#' # differential expression analysis:
+#' diffgene = diffGene(expr = SandlerFPKM, array=FALSE,  fpkm=TRUE,  counts=FALSE,
+#'                    from.sample="DMEC", to.sample="rEChMPP", target.sample="CB",
+#'                    filter=TRUE, filter.perc =0.4, pvalue = 0.05 )
+#'
+#' # differential analysis results
+#' diffgene.result = diffgene[[1]]
+#' # differential genes
+#' diffgene.genes = diffgene[[2]]
+#' # filtered expression data
+#' expr.filter = diffgene[[3]]
+
 
 diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c("limma","DESeq2"),
                     from.sample, to.sample, target.sample, filter = FALSE, filter.perc = 0.4, padjust = "fdr",

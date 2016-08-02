@@ -8,6 +8,9 @@
 \usage{
 data(human.grn)
 }
+\value{
+A list of human gene regulatory information.
+}
 \description{
 A list of 16 data frames (cells/tissues) with transcription factors (TF) to target genes (TG)
 regulation information.

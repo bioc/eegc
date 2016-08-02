@@ -9,6 +9,9 @@ gene sets}
 \usage{
 data(mouse.tf)
 }
+\value{
+A list of 1744 mouse cells/tissues-specific TF regulated gene sets.
+}
 \description{
 A list of 1744 mouse cells/tissues-specific TF regulated gene sets summarized from the gene
 regulatory network downloaded from the CellNet website.

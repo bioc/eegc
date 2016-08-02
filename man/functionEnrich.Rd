@@ -34,4 +34,19 @@ Function enrichment analysis results.
 This function performs Gene Ontology (GO) and KEGG pathways functional enrichment for the five gene categories by calling
 \pkg{clusterProfiler} package.
 }
+\examples{
+data(cate.gene)
+# result in "enrichResult" class by specifying TRUE to raw parameter
+goenrichraw = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
+                             GO = TRUE, KEGG = FALSE, raw = TRUE)
+
+# result of the summary of "enrichResult" by specifying FALSE to raw parameter
+# GO enrichment
+goenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
+                          GO = TRUE, KEGG = FALSE, raw = FALSE)
+
+# KEGG enrichment
+keggenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
+                            GO = FALSE, KEGG = TRUE, raw = FALSE)
+}
 

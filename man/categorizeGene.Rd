@@ -42,4 +42,13 @@ EDg ratio is greater than 1.
 For the \emph{Inactive} and \emph{Successful} categories, genes with bottom and top 5 percentage ED ratios are
 removed to avoid the ambiguous categorization with \emph{Reversed}, \emph{Insufficient} or \emph{Over} categories.
 }
+\examples{
+data(expr.filer)
+data(diffgene.genes)
+
+category = categorizeGene(expr = expr.filter,diffGene = diffgene.genes,
+           from.sample="DMEC", to.sample="rEChMPP", target.sample="CB")
+cate.gene = category[[1]]
+cate.ratio = category[[2]]
+}
 

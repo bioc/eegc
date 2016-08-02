@@ -8,6 +8,9 @@
 \usage{
 data(tissueGenes)
 }
+\value{
+A list with 126 cells/tissues-specific gene sets
+}
 \description{
 A list of 126 cells/tissues-specific gene sets identified by SpeCond algorithm
  from 126 cells/tissues in Gene Enrichment Profiler database.

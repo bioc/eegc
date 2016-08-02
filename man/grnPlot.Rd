@@ -41,8 +41,24 @@ in \code{\link[igraph]{igraph.plotting}}.}
 
 \item{...}{other parameters used in \code{\link[igraph]{igraph.plotting}}.}
 }
+\value{
+a igraph plot for gene regulatory network.
+}
 \description{
 This function plot the a cell/tissue-specific gene regulatory network with genes in the five categories,
 alterntively reducing the network size by plotting given specific genes as nodes.
+}
+\examples{
+\dontrun{
+  # select genes to shown their regulation with others
+  node.genes = c("ZNF641", "BCL6")
+  # enlarge the centrality
+  centrality.score = degree$centrality*100
+  names(centrality.score) = degree$Gene
+  par(mar = c(2,2,3,2))
+  grnPlot(grn.data = human.grn[[tissue]], cate.gene = cate.gene, filter = TRUE,
+         nodes = node.genes, centrality.score = centrality.score,
+         main = "Gene regulatory network")
+}
 }
 

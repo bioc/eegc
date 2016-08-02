@@ -14,7 +14,22 @@
 #'  density plot.
 #' @param out.file a character string naming the output file with density plot.
 #' @param ... parameters in \code{\link[graphics]{plot}}.
+#' @return a density plot
 #' @export
+#' @examples
+#' data(cate.ratio)
+#' names(cate.ratio)
+#' # make the extreme ED ratios in Reversed and Over categories to the median values
+#' reverse = cate.ratio[[1]]
+#' over = cate.ratio[[5]]
+#' reverse[reverse[,1] <= median(reverse[,1]), 1]  = median(reverse[,1])
+#' over[over[,1] >= median(over[,1]),1] = median(over[,1])
+#' cate.ratio[[1]] = reverse
+#' cate.ratio[[5]] = over
+#'
+#' # densityPlot(cate.ratio, xlab = "ED ratio", ylab = "Density", proportion = TRUE)
+
+
 
 densityPlot = function(ratio, color = NULL, main = NA, xlab = NA,ylab = "Density",
                        legend.labels = NULL, shade = TRUE,transparency = TRUE,
@@ -66,7 +81,7 @@ densityPlot = function(ratio, color = NULL, main = NA, xlab = NA,ylab = "Density
     if(is.null(legend.labels))
       legend.labels= names(ratio)
     legend("topleft",legend=legend.labels,fill= color,border = color,
-           density=rep(NA,5),bty= "n", x.intersp=0.3,horiz=T,...)
+           density=rep(NA,5),bty= "n", x.intersp=0.3,horiz=TRUE,...)
   }
 
   #add proportion of each gene category over all genes

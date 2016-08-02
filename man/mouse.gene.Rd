@@ -8,6 +8,9 @@
 \usage{
 data(mouse.gene)
 }
+\value{
+A list of 20 mouse cells/tissues-specific gene sets
+}
 \description{
 A list of 20 mouse cells/tissues-specific gene sets summarized from the gene regulatory network
 downloaded from the CellNet website.

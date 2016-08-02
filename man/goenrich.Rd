@@ -8,6 +8,9 @@
 \usage{
 data(goenrich)
 }
+\value{
+A list of GO enrichment results
+}
 \description{
 A list of 5 data frames with the Gene ontology enrichment results for the
 five gene categories.

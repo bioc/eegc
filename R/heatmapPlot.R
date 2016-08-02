@@ -25,6 +25,13 @@
 #' @importFrom gplots colorpanel
 #' @return heatmap plot and the terms with p.values for the heatmap
 #' @export
+#' @examples
+#' # plot the enrichment results by the five gene categories
+#' data(goenrich)
+#' heatmaptable = heatmapPlot(goenrich, GO = TRUE, top = 5, filter = FALSE,
+#'                            main = "Gene ontology enrichment",
+#'                            display_numbers =  FALSE)
+
 
 heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pvalue = 0.05, top= NA,
                        filter = FALSE, main = NA, annotation = NULL, annotation_col =NULL,
@@ -36,45 +43,34 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
       if("Description" %in% colnames(x)){
         x$Term = apply(x[,c("ID","Description")],1,paste,collapse="~")
       }
-      x
-    })
-  }
+      x})}
   else{
     enrichresult = lapply(enrichresult,function(x){
       x$Term = x$Row.names
-      x
-    })
-  }
-
+      x})}
   if(!is.null(terms)){
     if(is.vector(terms)){
       enrichresult = lapply(enrichresult, function(x){
         x = x[x[,1] %in% terms,]
-        x
-      })
-    }
+        x})}
     else{
       enrichresult = lapply(enrichresult, function(x){
         x = x[x[,1] %in% terms[,1],]
-        x
-      })
-    }
+        x})}
   }
-
   if(padjust){
     term = lapply(enrichresult,function(x){
       x = x[order(x$p.adjust),]
       if(!is.na(top) ){
         x = x[1:top,]
-      }
+        }
       else{
         x = x[x$p.adjust <= pvalue,]
       }
       return(x)})
     allterm = unique(unlist(lapply(term,"[","Term")))
     mapterm = lapply(enrichresult, function(x){
-      x[x$Term %in% allterm,c("Term","p.adjust")]
-    })
+      x[x$Term %in% allterm,c("Term","p.adjust")]})
   }
   else{
     term = lapply(enrichresult,function(x){
@@ -88,16 +84,13 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
       return(x)})
     allterm = unique(unlist(lapply(term,"[","Term")))
     mapterm = lapply(enrichresult, function(x){
-      x[x$Term %in% allterm,c("Term","P.value")]
-    })
+      x[x$Term %in% allterm,c("Term","P.value")]})
   }
-
   for(i in 1:length(term)){
     colnames(mapterm[[i]])[2] = names(term)[i]
   }
-
   tablebuild = function(data,filter,replace =1){
-    table = Reduce(function(...) merge(..., by="Term", all=T), data)
+    table = Reduce(function(...) merge(..., by="Term", all=TRUE), data)
     rownames(table) = table$Term
     table = table[,-1]
     table[is.na(table)] = replace
@@ -111,27 +104,22 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
     table = data.matrix(table)
     table
   }
-
   table = tablebuild(data= mapterm, filter = filter)
   log.table = abs(log(table,base=10))
 
   if(display_numbers){
     countterm = lapply(enrichresult, function(x){
-      x[,c("Term","Count")]
-    })
-
+      x[,c("Term","Count")]})
     for(i in 1:length(term)){
       colnames(countterm[[i]])[2] = names(term)[i]
     }
-    counttable = tablebuild(data = countterm, filter =F,replace =0)
+    counttable = tablebuild(data = countterm, filter =FALSE,replace =0)
     counttable = counttable[match(rownames(table),rownames(counttable)),]
   }
-
   if(is.null(annotation)){
     annotation = data.frame(Group = colnames(log.table))
     rownames(annotation) = colnames(log.table)
   }
-
   if(annotated_row){
     if(is.null(annotation_row)){
       anno.data = table(terms[,"Group"])
@@ -140,7 +128,6 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
       rownames(annotation_row) = terms[,1]
     }
   }
-
   if(is.null(annotation_colors)){
     if(annotated_row){
       annotation_colors = list(Group = c("#abd9e9", "#2c7bb6", "#fee090", "#d7191c", "#fdae61"),
@@ -153,12 +140,6 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
       names(annotation_colors[[1]]) = colnames(log.table)
     }
   }
-
-  #breaks = seq(0,max(log.table),length.out = 1000)
-  #gradient1 = colorpanel( sum( breaks[-1]<= 2 ), "blue","blue" )
-  #gradient2 = colorpanel( sum( breaks[-1]> 2 ),  "white","red" )
-  #hm.colors = c(gradient1,gradient2)
-
   hm.colors = colorpanel(100,"darkblue","white","darkred")
 
   if(display_numbers){

@@ -28,7 +28,14 @@
 #' a list of the five gene categories
 #' a list of the ED ratios for the five gene categories.
 #' @export
-
+#' @examples
+#' data(expr.filer)
+#' data(diffgene.genes)
+#'
+#' category = categorizeGene(expr = expr.filter,diffGene = diffgene.genes,
+#'            from.sample="DMEC", to.sample="rEChMPP", target.sample="CB")
+#' cate.gene = category[[1]]
+#' cate.ratio = category[[2]]
 
 categorizeGene = function(expr, diffGene, from.sample, to.sample, target.sample){
 
@@ -86,7 +93,7 @@ categorizeGene = function(expr, diffGene, from.sample, to.sample, target.sample)
   #remove the bottom quantile 5% and top quantile 5% genes based on the ED ratio for the Successful and Inactive genes
   ratio.list.filter = lapply(ratio.list[c(2,4)], function(x){
     y = x[,1]
-    z= x[x[,1] >= quantile(y,0.05) & x[,1] <= quantile(y,0.95),,drop=F]
+    z= x[x[,1] >= quantile(y,0.05) & x[,1] <= quantile(y,0.95),,drop=FALSE]
     z
   })
   ratio.listold = ratio.list

@@ -28,7 +28,23 @@ density plot.}
 
 \item{...}{parameters in \code{\link[graphics]{plot}}.}
 }
+\value{
+a density plot
+}
 \description{
 Quantify genes in each gene category and their expression difference (ED) ratios in a density plot.
+}
+\examples{
+data(cate.ratio)
+names(cate.ratio)
+# make the extreme ED ratios in Reversed and Over categories to the median values
+reverse = cate.ratio[[1]]
+over = cate.ratio[[5]]
+reverse[reverse[,1] <= median(reverse[,1]), 1]  = median(reverse[,1])
+over[over[,1] >= median(over[,1]),1] = median(over[,1])
+cate.ratio[[1]] = reverse
+cate.ratio[[5]] = over
+
+# densityPlot(cate.ratio, xlab = "ED ratio", ylab = "Density", proportion = TRUE)
 }
 

@@ -21,7 +21,12 @@
 #' @return a data frame with the percentage of \code{cate.gene} in the \code{annotated.gene}.
 #' @importFrom R.utils capitalize
 #' @export
-
+#' @examples
+#' # load the C/T-specific genes in 16 cells/tissues
+#' data(human.gene)
+#' data(cate.gene)
+#' # perc = dotPercentage(cate.gene = cate.gene, annotated.gene = human.gene,
+#' #                     order.by = "Successful")
 
 dotPercentage = function(cate.gene, annotated.gene, order.by =NULL, type = "l", lty = 1,
                          pch= NULL, col = NULL, srt =50, font = 1, adj = c(1,1), cex = 1,
@@ -48,7 +53,7 @@ dotPercentage = function(cate.gene, annotated.gene, order.by =NULL, type = "l", 
     else{
       order.by = "Inactive"
     }
-      data = data[order(data[,order.by],decreasing =T),]
+      data = data[order(data[,order.by],decreasing =TRUE),]
       data = t(data)
       cate.name = rownames(data)
       annotated.name = colnames(data)

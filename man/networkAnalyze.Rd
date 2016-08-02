@@ -21,9 +21,22 @@ centrality of network built from input \code{grn.data}, see \code{\link[igraph]{
 \item{mode}{character string of "all", "in", "out" and "total", only used when \code{centrality} is "degree"
 or "closeness", see \code{\link[igraph]{degree}}, \code{\link[igraph]{closeness}} for details.}
 }
+\value{
+data frame with genes and centrality scores.
+}
 \description{
 This function analyzes the topological structure of gene regulation network (GRN) by calculating the "degree",
 "betweenness", "closeness" and "stress" parameters, and output the centrality values for given genes in each
 gene categories.
+}
+\examples{
+# load the CellNet GRN and gene categories
+data(human.grn)
+data(cate.gene)
+
+# specify a tissue-specifc network
+tissue = "Hspc"
+degree = networkAnalyze(human.grn[[tissue]], cate.gene = cate.gene,
+                       centrality = "degree", mode ="all")
 }
 

@@ -8,6 +8,9 @@
 \usage{
 data(human.gene)
 }
+\value{
+A list with 16 human cells/tissues-specific gene sets from CellNet.
+}
 \description{
 A list of 16 human cells/tissues-specific gene sets summarized from the gene regulatory network
 downloaded from the CellNet website.

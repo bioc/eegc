@@ -8,6 +8,9 @@
 \usage{
 data(markers)
 }
+\value{
+A vector of marker genes
+}
 \description{
 A vector containing 65 genes specific in endothelial and haematopoietic cells as
  listed in Sandler's paper.

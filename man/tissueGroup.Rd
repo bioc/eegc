@@ -8,6 +8,9 @@
 \usage{
 data(tissueGroup)
 }
+\value{
+A data frame with 126 cells/tissues and 30 C/T groups they mapped to
+}
 \description{
 A data frame with 126 cells/tissues and 30 C/T groups they belong to.
 }

@@ -9,6 +9,9 @@ regulated gene sets}
 \usage{
 data(human.tf)
 }
+\value{
+A list with 1455 human cells/tissues-specific TF regulated gene sets
+}
 \description{
 A list of 1455 human cells/tissues-specific TF regulated gene sets summarized from the gene
 regulatory network downloaded from the CellNet website.

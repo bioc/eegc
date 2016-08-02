@@ -38,4 +38,11 @@ a data frame with the percentage of \code{cate.gene} in the \code{annotated.gene
 This function calculate the percentage of genes in each category over given annotated gene sets and plot
 the percentages.
 }
+\examples{
+# load the C/T-specific genes in 16 cells/tissues
+data(human.gene)
+data(cate.gene)
+# perc = dotPercentage(cate.gene = cate.gene, annotated.gene = human.gene,
+#                     order.by = "Successful")
+}
 

@@ -25,7 +25,20 @@
 #' @param layout the layout of network plot, see details in \code{\link[igraph]{layout}}.
 #' @param legend.labels vector of label names for each \code{cate.gene}.
 #' @param ... other parameters used in \code{\link[igraph]{igraph.plotting}}.
+#' @return a igraph plot for gene regulatory network.
 #' @export
+#' @examples
+#' \dontrun{
+#'   # select genes to shown their regulation with others
+#'   node.genes = c("ZNF641", "BCL6")
+#'   # enlarge the centrality
+#'   centrality.score = degree$centrality*100
+#'   names(centrality.score) = degree$Gene
+#'   par(mar = c(2,2,3,2))
+#'   grnPlot(grn.data = human.grn[[tissue]], cate.gene = cate.gene, filter = TRUE,
+#'          nodes = node.genes, centrality.score = centrality.score,
+#'          main = "Gene regulatory network")
+#' }
 
 grnPlot = function(grn.data, cate.gene, filter = TRUE, nodes = NULL, centrality.score,
                    col = NULL, main= NULL, vertex.label =NULL, vertex.label.dist = 0,

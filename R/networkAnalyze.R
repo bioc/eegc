@@ -15,13 +15,21 @@
 #' @param mode character string of "all", "in", "out" and "total", only used when \code{centrality} is "degree"
 #' or "closeness", see \code{\link[igraph]{degree}}, \code{\link[igraph]{closeness}} for details.
 #' @importFrom sna stresscent
+#' @return data frame with genes and centrality scores.
 #' @export
+#' @examples
+#' # load the CellNet GRN and gene categories
+#' data(human.grn)
+#' data(cate.gene)
+#'
+#' # specify a tissue-specifc network
+#' tissue = "Hspc"
+#' degree = networkAnalyze(human.grn[[tissue]], cate.gene = cate.gene,
+#'                        centrality = "degree", mode ="all")
 
-
-networkAnalyze = function(grn.data, cate.gene,
-                          centrality = c("degree", "betweenness", "stress", "closeness"),
+networkAnalyze = function(grn.data, cate.gene, centrality = c("degree", "betweenness", "stress", "closeness"),
                           mode = c("all", "in", "out", "total")){
-  # classify the genes into TF, TG, or TF&TG
+  #classify the genes into TF, TG, or TF&TG
   tf = unique(grn.data[,"TF"])
   tg = unique(grn.data[,"TG"])
 
@@ -89,7 +97,7 @@ networkAnalyze = function(grn.data, cate.gene,
     mat= as_adjacency_matrix(all.ppi,type= "both",attr=NULL, edges=FALSE,
                              names=TRUE,sparse= FALSE)
     centrality.score = 2 * stresscent(mat, g=1, gmode= "graph",
-                                      cmode= "undirected", ignore.eval=T)
+                                      cmode= "undirected", ignore.eval=TRUE)
     names(centrality.score) = rownames(mat)
   }
 

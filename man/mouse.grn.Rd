@@ -8,6 +8,9 @@
 \usage{
 data(mouse.grn)
 }
+\value{
+A list of mouse gene regulatory information.
+}
 \description{
 A list of 20 data frames (cells/tissues) with transcription factors (TF) to target genes (TG)
 regulation information.

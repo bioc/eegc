@@ -11,7 +11,14 @@
 #' @param font.size,title font size and title.
 #' @param color the color of the bar.
 #' @param ... see parameters in \code{\link[ggplot2]{fortify}} function.
+#' @return bar plot of enrichment results
 #' @export
+#' @examples
+#' \dontrun{
+#'   # plot the "enrichResult" of Inactive category
+#'   inactive = goenrichraw[[2]]
+#'   barplotEnrich(inactive, top =5, color ="#2c7bb6", title = "Inactive")
+#'   }
 
 barplotEnrich = function (height, x = "Count", colorBy = "p.adjust", top = 5,
           font.size = 12, title = "", color = NULL,...)

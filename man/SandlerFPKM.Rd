@@ -11,6 +11,9 @@ multipotent haematopoietic progenitor (rEChMPP) cells and primary cord blood (CB
 \usage{
 data(SandlerFPKM)
 }
+\value{
+A data frame with gene expression data.
+}
 \description{
 RNA-seq data in FPKM
 A data frame containing 16692 gene in 7 samples from paper published by Sandler et.al. in 2014.,

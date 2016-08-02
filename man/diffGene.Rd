@@ -46,4 +46,19 @@ This function can be applied on both microarray and RNA-seq data for differentia
 "fpkm", or "counts" is specified. It does differential analysis to each pair-wise sample comparison among the from.sample,
 to.sample and target.sample.
 }
+\examples{
+data(SandlerFPKM)
+
+# differential expression analysis:
+diffgene = diffGene(expr = SandlerFPKM, array=FALSE,  fpkm=TRUE,  counts=FALSE,
+                   from.sample="DMEC", to.sample="rEChMPP", target.sample="CB",
+                   filter=TRUE, filter.perc =0.4, pvalue = 0.05 )
+
+# differential analysis results
+diffgene.result = diffgene[[1]]
+# differential genes
+diffgene.genes = diffgene[[2]]
+# filtered expression data
+expr.filter = diffgene[[3]]
+}
 

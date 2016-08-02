@@ -16,7 +16,19 @@
 #' @param ... other parameters in \code{\link[graphics]{plot}}.
 #' @importFrom wordcloud textplot
 #' @details Visualization of gene expression in the five categories under each pair-wised comparison.
+#' @return plot with gene expression profile.
 #' @export
+#' @examples
+#' #load the marker genes of somatic and primary cells
+#' data(markers)
+#' data(expr.filter)
+#' #scatterplot
+#' col = c("#abd9e9", "#2c7bb6", "#fee090", "#d7191c", "#fdae61")
+#' markerScatter(expr = expr.filter, log = TRUE, samples = c("CB", "DMEC"),
+#'               cate.gene = cate.gene[2:4], markers = markers, col = col[2:4],
+#'               xlab = expression('log'[2]*' expression in CB (target)'),
+#'              ylab = expression('log'[2]*' expression in DMEC (input)'),main = "")
+
 
 markerScatter = function(expr, log =FALSE, samples, cate.gene, markers = NULL, pch = 19,
                          cex = 0.5, col = NULL, xlab = NULL, ylab = NULL, main = NULL,

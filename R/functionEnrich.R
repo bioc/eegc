@@ -16,6 +16,22 @@
 #' @param raw logical to determine if the raw "enrichResult" is output, default to \code{FALSE} to output a summary of the "enrichResult".
 #' @return Function enrichment analysis results.
 #' @export
+#' @examples
+#' data(cate.gene)
+#' # result in "enrichResult" class by specifying TRUE to raw parameter
+#' goenrichraw = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
+#'                              GO = TRUE, KEGG = FALSE, raw = TRUE)
+#'
+#' # result of the summary of "enrichResult" by specifying FALSE to raw parameter
+#' # GO enrichment
+#' goenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
+#'                           GO = TRUE, KEGG = FALSE, raw = FALSE)
+#'
+#' # KEGG enrichment
+#' keggenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
+#'                             GO = FALSE, KEGG = TRUE, raw = FALSE)
+
+
 
 functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBOL", ont = "BP",
                           pAdjustMethod ="bonferroni",GO=TRUE,KEGG= FALSE,raw = FALSE){
@@ -63,7 +79,7 @@ functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBO
         x = x
       }
       enrichKEGG(x, organism = org, pAdjustMethod=pAdjustMethod,
-                 pvalueCutoff = 1,qvalueCutoff=1,use_internal_data =F)
+                 pvalueCutoff = 1,qvalueCutoff=1,use_internal_data =FALSE)
     })
     kegg.result = lapply(kegg,summary)
     kegg.raw = kegg

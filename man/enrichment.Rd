@@ -22,4 +22,24 @@ A list of enrichment results for the five gene categories.
 \description{
 Enrichment Analysis by Hypergeometric Distribution Test
 }
+\examples{
+# load the cell/tissue-specific genes
+data(tissueGenes)
+# load the mapping file of cells/tissues to grouped cells/tissues
+data(tissueGroup)
+
+# get the background genes
+data(expr.filter)
+genes = rownames(expr.filter)
+# enrichment analysis for the five gene categories
+data(cate.gene)
+tissueenrich = enrichment(cate.gene = cate.gene, annotated.gene = tissueGenes,
+                         background.gene = genes, padjust.method = "fdr")
+# select a group of cells/tissues
+tissueGroup.selec = c("stem cells","B cells","T cells","Myeloid","Endothelial CD105+")
+tissues.selec = tissueGroup[tissueGroup[,"Group"] \%in\% tissueGroup.selec,c(2,3)]
+# tissuetable = heatmapPlot(tissueenrich, terms = tissues.selec, GO=FALSE,
+#                           annotated_row = TRUE,annotation_legend = TRUE,
+#                           main = "Tissue-specific enrichment")
+}
 
