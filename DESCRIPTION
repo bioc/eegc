@@ -19,7 +19,6 @@ Description: This package has been developed to evaluate cellular
     have induced and primary reference cell showing overlapping profiles, both very
     different from the original cells.
 VignetteBuilder: knitr
-
 Depends:R (>= 3.3.0)
 Imports: R.utils, gplots, sna, wordcloud, igraph, pheatmap, edgeR,
     DESeq2, clusterProfiler, S4Vectors, ggplot2, org.Hs.eg.db, org.Mm.eg.db,
