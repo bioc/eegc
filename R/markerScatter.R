@@ -74,7 +74,7 @@ markerScatter = function(expr, log =FALSE, samples, cate.gene, markers = NULL, p
   }
 
   if(is.null(col)){
-    col = c("#abd9e9", "#2c7bb6", "#fee090", "#d7191c", "#fdae61")
+    col = colorRampPalette(c("#2c7bb6", "#fee090", "#d7191c"))(n)
   }
 
   plot(expr.selec[[1]], pch = pch, cex =cex, col=col[1],
@@ -94,7 +94,7 @@ markerScatter = function(expr, log =FALSE, samples, cate.gene, markers = NULL, p
     expr.selec.all = do.call("rbind",expr.selec)
     expr.marker = expr.selec.all[rownames(expr.selec.all) %in% markers,]
     if(length(expr.marker) != 0){
-      if(length(expr.marker) == 1){
+      if(length(expr.marker) == 2){
         text(expr.marker[,1],expr.marker[,2],rownames(expr.marker))
       }
       else{
