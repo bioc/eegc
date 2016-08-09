@@ -79,26 +79,28 @@ markerScatter = function(expr, log =FALSE, samples, cate.gene, markers = NULL, p
 
   plot(expr.selec[[1]], pch = pch, cex =cex, col=col[1],
        xlim= c(0,ceiling(xlim.max)), ylim=c(0,ceiling(ylim.max)),
-       xlab = xlab, ylab = ylab, main= main, font.lab =2,
-       font.main =2,...)
-
-  if(add.line){
-    line1 = lm(expr.selec[[1]][,2] ~ expr.selec[[1]][,1])
-    abline(line1, col = col[1], lty = 2, lwd = 2)
-
-    for(i in 2:n){
-      points(expr.selec[[i]],col = col[i], pch =pch, cex = cex)
-      line = lm(expr.selec[[i]][,2] ~ expr.selec[[i]][,1])
-      abline(line, col = col[i], lty = 2, lwd = 2)
-    }
+       xlab = xlab, ylab = ylab, main= main,...)
+  for(i in 2:n){
+    points(expr.selec[[i]],col = col[i], pch =pch, cex = cex)
   }
 
+  if(add.line){
+    for(i in 1:n){
+      line = lm(expr.selec[[i]][,2] ~ expr.selec[[i]][,1])
+      abline(line, col = col[i], lty = 2, lwd = 2) 
+    }
+  }
   if(!is.null(markers)){
     expr.selec.all = do.call("rbind",expr.selec)
     expr.marker = expr.selec.all[rownames(expr.selec.all) %in% markers,]
-    if(nrow(expr.marker) != 0){
-      textplot(expr.marker[,1],expr.marker[,2],
-               rownames(expr.marker), new=FALSE)
+    if(length(expr.marker) != 0){
+      if(length(expr.marker) == 1){
+        text(expr.marker[,1],expr.marker[,2],rownames(expr.marker))
+      }
+      else{
+        textplot(expr.marker[,1],expr.marker[,2],
+                 rownames(expr.marker), new=FALSE)
+      }
     }
   }
   if(is.null(legend.labels)){
