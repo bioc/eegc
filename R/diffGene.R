@@ -49,6 +49,7 @@ diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c(
     expr = data.frame(expr, stringsAsFactors = FALSE)
   }
   #filter the genes with low expression
+  n.sample = ncol(expr)
   if(!array){
     if(filter){
       expr = expr[rowSums(expr >= 1) >= n.sample*filter.perc,]
@@ -56,7 +57,6 @@ diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c(
   }
   expr.all = expr
 
-  n.sample = ncol(expr)
   expr.comb = list()
   expr.comb[[1]] = expr[,gsub("[^[:alpha:]]","",colnames(expr)) %in% from.sample]
   expr.comb[[2]] = expr[,gsub("[^[:alpha:]]","",colnames(expr)) %in% to.sample]
