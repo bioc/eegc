@@ -54,6 +54,7 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
         x = x[x[,1] %in% terms,]
         x})}
     else{
+    terms = terms[order(terms[,2]),]
       enrichresult = lapply(enrichresult, function(x){
         x = x[x[,1] %in% terms[,1],]
         x})}
