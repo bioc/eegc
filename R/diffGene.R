@@ -48,7 +48,13 @@ diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c(
   if(!is.data.frame(expr)){
     expr = data.frame(expr, stringsAsFactors = FALSE)
   }
-  method = match.arg(method)
+  #filter the genes with low expression
+  if(!array){
+    if(filter){
+      expr = expr[rowSums(expr >= 1) >= n.sample*filter.perc,]
+    }
+  }
+  expr.all = expr
 
   n.sample = ncol(expr)
   expr.comb = list()
@@ -66,15 +72,8 @@ diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c(
   expr.comb2[[3]] = cbind(expr.comb[[3]],expr.comb[[2]])
   n.comb[[3]] = c(n[[3]],n[[2]])
 
-  #filter the genes with low expression
-  if(!array){
-    if(filter){
-      expr = expr[rowSums(expr >= 1) >= n.sample*filter.perc,]
-    }
-  }
-  expr.all = expr
-
   #differential analysis
+  method = match.arg(method)
   diff.result = list()
   for(i in 1:3){
     expr = expr.comb2[[i]]
