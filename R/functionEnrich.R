@@ -7,7 +7,7 @@
 #' @param cate.gene a list of the five gene categories, alternatively output by \code{\link{categorizeGene}}.
 #' @param organism a character of organism "human" or "mouse" to indicate the species of background genes.
 #' @param convert logical to determine whether the gene ID should be converted to "ENTREZID", default to \code{TRUE}.
-#' @param from the gene id type of input data, see
+#' @param from the gene id type of input data, see the key types of \code{\link[org.Hs.eg.db]{org.Hs.eg.db}}.
 #' @param ont One of "MF", "BP", and "CC" subontologies, see \code{\link[clusterProfiler]{enrichGO}}.
 #' @param pAdjustMethod correction method for p-value, one of "holm", "hochberg", "hommel", "bonferroni", "BH",
 #' "BY", "fdr", "none", default to "fdr", see details in \code{\link[stats]{p.adjust}}.
@@ -42,6 +42,8 @@ functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBO
   else if(organism == "mouse"){
     OrgDb = "org.Mm.eg.db"
   }
+  idtypes = keytypes(OrgDb)
+  from = match.arg(from, idtypes)
 
   if(convert){
     ids.list = lapply(cate.gene,function(x){
