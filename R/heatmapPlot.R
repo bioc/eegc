@@ -35,7 +35,7 @@
 
 heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pvalue = 0.05, top= NA,
                        filter = FALSE, main = NA, annotation = NULL, annotation_col =NULL,
-                       annotated_row = FALSE, annotation_row =NULL,annotation_colors=NULL,
+                       annotated_row = FALSE, annotation_row =NULL,annotation_colors=NA,
                        display_numbers=FALSE, annotation_legend=FALSE,...){
 
   if(GO){
@@ -129,7 +129,7 @@ heatmapPlot = function(enrichresult, GO =FALSE, terms = NULL, padjust =TRUE, pva
       rownames(annotation_row) = terms[,1]
     }
   }
-  if(is.null(annotation_colors)){
+  if(is.na(annotation_colors)){
     if(annotated_row){
       annotation_colors = list(Group = c("#abd9e9", "#2c7bb6", "#fee090", "#d7191c", "#fdae61"),
                                Tissue = c("#3B528BFF","#440154FF","#21908CFF","#FDE725FF","#5DC863FF"))
