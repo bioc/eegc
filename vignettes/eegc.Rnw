@@ -267,21 +267,21 @@ The functional annotation for each gene category is performed by applying the R 
 Given an input genelist with five gene categories and having set the \Rcode{organism} parameter (optionally, \Rcode{human} or \Rcode{mouse}), \Rfunction{functionEnrich} performs the functional enrichment analysis for Gene Ontology (GO) \cite{Ashburner2000} and Kyoto Encyclopedia of genes and Genomes (KEGG) pathway \cite{Kanehisa2012} with either hypergeometric test or Gene Set Enrichment Analysis (GSEA).
 
 <<functionEnrichment, eval=TRUE, warning = FALSE>>=
-#  result in "enrichResult" class by specifying TRUE to raw parameter
+#  result in "enrichResult" class by specifying TRUE to enrichResult parameter
 goenrichraw = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-                             GO = TRUE, KEGG = FALSE, raw = TRUE)
+                             GO = TRUE, KEGG = FALSE, enrichResult = TRUE)
 class(goenrichraw[[1]])
 @
 
 
 <<functionEnrichment2, eval=FALSE, warning = FALSE>>=
-# result of the summary of "enrichResult" by specifying FALSE to raw parameter
+# result of the summary of "enrichResult" by specifying FALSE to enrichResult parameter
 # GO enrichment
 goenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-                          GO = TRUE, KEGG = FALSE, raw = FALSE)
+                          GO = TRUE, KEGG = FALSE, enrichResult = FALSE)
 # KEGG enrichment
 keggenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-                            GO = FALSE, KEGG = TRUE, raw = FALSE)
+                            GO = FALSE, KEGG = TRUE, enrichResult = FALSE)
 @
 
 To describe the significantly enriched functional terms in each category (Figure~\ref{fig:barplotEnrich}) and for further comparison within the five gene categories (Figure~\ref{fig:heatmapPlot}), a bar plot function \Rfunction{barplotEnrich} (modified from the \Rfunction{barplot.enrichResult} function in \CRANpkg{DOSE} \cite{He2015} package) and heatmap plot function \Rfunction{heatmapPlot} are added in the package, outputting the most enriched terms selected by parameter \Rcode{top}.

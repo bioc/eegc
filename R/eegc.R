@@ -14,6 +14,7 @@
 #' @importFrom edgeR DGEList calcNormFactors
 #' @importFrom DESeq2 DESeqDataSetFromMatrix DESeq
 #' @importFrom clusterProfiler bitr enrichKEGG enrichGO plotGOgraph plot
+#' @importFrom AnnotationDbi keytypes
 NULL
 
 #' RNA-seq data in FPKM

@@ -4,10 +4,10 @@
 \alias{heatmapPlot}
 \title{Heatmap Plot of Enriched Terms}
 \usage{
-heatmapPlot(enrichresult, GO = FALSE, terms = NULL, padjust =TRUE, pvalue = 0.05,
-top= NA, filter = FALSE, main = NA, annotation = NULL, annotation_col =NULL,
-annotated_row = FALSE, annotation_row =NULL,annotation_colors=NULL,
-display_numbers=FALSE, annotation_legend=FALSE,...)
+heatmapPlot(enrichresult, GO = FALSE, terms = NULL, padjust = TRUE, pvalue = 0.05,
+top= NA, filter = FALSE, main = NA, annotation = NULL, annotation_col = NULL,
+annotated_row = FALSE, annotation_row = NULL,annotation_colors = NA,
+display_numbers = FALSE, annotation_legend = FALSE,...)
 }
 \arguments{
 \item{enrichresult}{a list of data frames with enrichment results, alternatively output by \code{\link{functionEnrich}}

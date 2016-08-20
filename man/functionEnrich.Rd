@@ -5,7 +5,7 @@
 \title{Funtional Enrichment Analysis}
 \usage{
 functionEnrich(cate.gene, organism = "human", convert = TRUE, from = "SYMBOL", ont = "BP",
-pAdjustMethod = "bonferroni", GO = TRUE, KEGG = FALSE, raw = FALSE)
+pAdjustMethod = "bonferroni", GO = TRUE, KEGG = FALSE, enrichResult = FALSE)
 }
 \arguments{
 \item{cate.gene}{a list of the five gene categories, alternatively output by \code{\link{categorizeGene}}.}
@@ -14,7 +14,7 @@ pAdjustMethod = "bonferroni", GO = TRUE, KEGG = FALSE, raw = FALSE)
 
 \item{convert}{logical to determine whether the gene ID should be converted to "ENTREZID", default to \code{TRUE}.}
 
-\item{from}{the gene id type of input data, see}
+\item{from}{the gene id type of input data, see the key types of \code{\link[org.Hs.eg.db]{org.Hs.eg.db}}.}
 
 \item{ont}{One of "MF", "BP", and "CC" subontologies, see \code{\link[clusterProfiler]{enrichGO}}.}
 
@@ -25,7 +25,7 @@ pAdjustMethod = "bonferroni", GO = TRUE, KEGG = FALSE, raw = FALSE)
 
 \item{KEGG}{logical to determine whether the functional enrichment is performed on KEGG pathways, default to \code{FALSE}.}
 
-\item{raw}{logical to determine if the raw "enrichResult" is output, default to \code{FALSE} to output a summary of the "enrichResult".}
+\item{enrichResult}{logical to determine if the "enrichResult" is output, default to \code{FALSE} to output a summary of the "enrichResult".}
 }
 \value{
 Function enrichment analysis results.
@@ -36,17 +36,17 @@ This function performs Gene Ontology (GO) and KEGG pathways functional enrichmen
 }
 \examples{
 data(cate.gene)
-# result in "enrichResult" class by specifying TRUE to raw parameter
+# result in "enrichResult" class by specifying TRUE to enrichResult parameter
 goenrichraw = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-                             GO = TRUE, KEGG = FALSE, raw = TRUE)
+                             GO = TRUE, KEGG = FALSE, enrichResult = TRUE)
 
-# result of the summary of "enrichResult" by specifying FALSE to raw parameter
+# result of the summary of "enrichResult" by specifying FALSE to enrichResult parameter
 # GO enrichment
 goenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-                          GO = TRUE, KEGG = FALSE, raw = FALSE)
+                          GO = TRUE, KEGG = FALSE, enrichResult = FALSE)
 
 # KEGG enrichment
 keggenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-                            GO = FALSE, KEGG = TRUE, raw = FALSE)
+                            GO = FALSE, KEGG = TRUE, enrichResult = FALSE)
 }
 

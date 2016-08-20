@@ -3,7 +3,7 @@
 #' This function performs Gene Ontology (GO) and KEGG pathways functional enrichment for the five gene categories by calling
 #' \pkg{clusterProfiler} package.
 #' @usage functionEnrich(cate.gene, organism = "human", convert = TRUE, from = "SYMBOL", ont = "BP",
-#' pAdjustMethod = "bonferroni", GO = TRUE, KEGG = FALSE, raw = FALSE)
+#' pAdjustMethod = "bonferroni", GO = TRUE, KEGG = FALSE, enrichResult = FALSE)
 #' @param cate.gene a list of the five gene categories, alternatively output by \code{\link{categorizeGene}}.
 #' @param organism a character of organism "human" or "mouse" to indicate the species of background genes.
 #' @param convert logical to determine whether the gene ID should be converted to "ENTREZID", default to \code{TRUE}.
@@ -13,28 +13,26 @@
 #' "BY", "fdr", "none", default to "fdr", see details in \code{\link[stats]{p.adjust}}.
 #' @param GO logical to determine whether the functional enrichment is performed on Gene Ontology, default to \code{TRUE}.
 #' @param KEGG logical to determine whether the functional enrichment is performed on KEGG pathways, default to \code{FALSE}.
-#' @param raw logical to determine if the raw "enrichResult" is output, default to \code{FALSE} to output a summary of the "enrichResult".
+#' @param enrichResult logical to determine if the "enrichResult" is output, default to \code{FALSE} to output a summary of the "enrichResult".
 #' @return Function enrichment analysis results.
 #' @export
 #' @examples
 #' data(cate.gene)
-#' # result in "enrichResult" class by specifying TRUE to raw parameter
+#' # result in "enrichResult" class by specifying TRUE to enrichResult parameter
 #' goenrichraw = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-#'                              GO = TRUE, KEGG = FALSE, raw = TRUE)
+#'                              GO = TRUE, KEGG = FALSE, enrichResult = TRUE)
 #'
-#' # result of the summary of "enrichResult" by specifying FALSE to raw parameter
+#' # result of the summary of "enrichResult" by specifying FALSE to enrichResult parameter
 #' # GO enrichment
 #' goenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-#'                           GO = TRUE, KEGG = FALSE, raw = FALSE)
+#'                           GO = TRUE, KEGG = FALSE, enrichResult = FALSE)
 #'
 #' # KEGG enrichment
 #' keggenrich = functionEnrich(cate.gene, organism = "human", pAdjustMethod = "fdr",
-#'                             GO = FALSE, KEGG = TRUE, raw = FALSE)
-
-
+#'                             GO = FALSE, KEGG = TRUE, enrichResult = FALSE)
 
 functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBOL", ont = "BP",
-                          pAdjustMethod ="bonferroni",GO=TRUE,KEGG= FALSE,raw = FALSE){
+                          pAdjustMethod ="bonferroni",GO=TRUE,KEGG= FALSE,enrichResult = FALSE){
 
   if(organism == "human"){
     OrgDb = "org.Hs.eg.db"
@@ -42,8 +40,12 @@ functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBO
   else if(organism == "mouse"){
     OrgDb = "org.Mm.eg.db"
   }
+  if(is(OrgDb, "character")) {
+    require(OrgDb, character.only = TRUE)
+    OrgDb <- eval(parse(text = OrgDb))
+  }
   idtypes = keytypes(OrgDb)
-  from = match.arg(from, idtypes)
+  from = match.arg(from, idtypes) 
 
   if(convert){
     ids.list = lapply(cate.gene,function(x){
@@ -65,7 +67,7 @@ functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBO
                pvalueCutoff = 1,qvalueCutoff=1,readable = TRUE)
     })
     gobp.result =lapply(gobp,summary)
-    gobp.raw = gobp
+    gobp.enrichResult = gobp
   }
 
   if(KEGG){
@@ -84,17 +86,17 @@ functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBO
                  pvalueCutoff = 1,qvalueCutoff=1,use_internal_data =FALSE)
     })
     kegg.result = lapply(kegg,summary)
-    kegg.raw = kegg
+    kegg.enrichResult = kegg
   }
 
   if(GO && KEGG){
-    if(raw){
+    if(enrichResult){
       return(list(GO=gobp, KEGG = kegg))
     }
     return (list(GO = gobp.result,KEGG = kegg.result))
   }
   else if(GO) {
-    if(raw){
+    if(enrichResult){
       return(gobp)
     }
     else{
@@ -102,7 +104,7 @@ functionEnrich = function(cate.gene,organism = "human", convert=TRUE,from="SYMBO
     }
   }
   else if (KEGG){
-    if(raw){
+    if(enrichResult){
       return(kegg)
     }
     else{
