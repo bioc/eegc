@@ -30,7 +30,7 @@
 
 enrichment = function(cate.gene,annotated.gene,background.gene, padjust.method = "fdr"){
   if(!is.list(cate.gene)){
-    stop("'cate.gene' is no a list.")
+    stop("'cate.gene' is not a list.")
   }
 
   # define the gene count function
@@ -47,10 +47,9 @@ enrichment = function(cate.gene,annotated.gene,background.gene, padjust.method =
       genes =gene
     }
     gene.num = length(genes)
-
+    
     enrich.num = length(annotated.gene)
     enrich.names = names(annotated.gene)
-
     enrich.new = matrix(NA,enrich.num+1,2)
     rownames(enrich.new) = c(enrich.names,"Others")
 
@@ -71,14 +70,13 @@ enrichment = function(cate.gene,annotated.gene,background.gene, padjust.method =
   enrichall.count = enrichall[["count"]]
   enrichall.num = enrichall[["number"]]
 
-  len = length(cate.gene)
   name = names(cate.gene)
   if(is.null(name))
     stop("'cate.gene' shoule be named.")
 
   enrichgene.count = list()
   enrichgene.num = list()
-  for(i in 1:len){
+  for(i in seq_along(cate.gene)){
     enrichgene = gene.count(cate.gene[[i]],annotated.gene,index=name[i])
     enrichgene.count[[i]] = enrichgene[["count"]]
     enrichgene.num[[i]] = enrichgene[["number"]]
@@ -107,7 +105,7 @@ enrichment = function(cate.gene,annotated.gene,background.gene, padjust.method =
 
   # perform the enrichment analysis
   enrich.result = list()
-  for(i in 1:len){
+  for(i in seq_along(enrichcount)){
     enrich.result[[i]] = enrichment(enrichcount[[i]],gene.num=enrichall.num, diff.num = enrichgene.num[[i]],
                                     index=c("All",name[i]),method = padjust.method)
   }
