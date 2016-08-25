@@ -2,8 +2,8 @@
 #'
 #' Generates an expression profile of each gene catetory in one sample against another, alternatively plot the regression
 #' line from linear modeling fitting.
-#' @usage markerScatter(expr, log = FALSE, samples, cate.gene, markers, pch = 19, cex = 0.5,
-#' col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE,text.cex = 1, legend.labels = NULL,
+#' @usage markerScatter(expr, log = FALSE, samples, cate.gene, markers = NULL, pch = 19, cex = 0.5,
+#' col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE, text.cex = 1, legend.labels = NULL,
 #' ...  )
 #' @param expr a data frame with gene expression.
 #' @param log logical to determine if the gene expression data is log converted (add a small constant 2), default to FALSE.

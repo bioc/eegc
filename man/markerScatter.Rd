@@ -4,8 +4,8 @@
 \alias{markerScatter}
 \title{Scatter Plot for Gene Expression}
 \usage{
-markerScatter(expr, log = FALSE, samples, cate.gene, markers, pch = 19, cex = 0.5,
-col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE,text.cex = 1, legend.labels = NULL,
+markerScatter(expr, log = FALSE, samples, cate.gene, markers = NULL, pch = 19, cex = 0.5,
+col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE, text.cex = 1, legend.labels = NULL,
 ...  )
 }
 \arguments{
