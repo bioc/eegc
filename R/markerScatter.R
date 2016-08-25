@@ -3,7 +3,7 @@
 #' Generates an expression profile of each gene catetory in one sample against another, alternatively plot the regression
 #' line from linear modeling fitting.
 #' @usage markerScatter(expr, log = FALSE, samples, cate.gene, markers, pch = 19, cex = 0.5,
-#' col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE, legend.labels = NULL,
+#' col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE,text.cex = 1, legend.labels = NULL,
 #' ...  )
 #' @param expr a data frame with gene expression.
 #' @param log logical to determine if the gene expression data is log converted (add a small constant 2), default to FALSE.
@@ -12,6 +12,7 @@
 #' @param markers vector of marker genes to be highlighted in the plot. No gene is highlighted when it's \code{NULL}.
 #' @param pch,cex,col,xlab,ylab,main plot parameters, see details in \code{\link[graphics]{par}}.
 #' @param add.line logical to determine if the linear model fitting line is added on the figure.
+#' @param text.cex font size for the text on \code{markers}, see details in \code{\link[graphics]{text}}.
 #' @param legend.labels vector of labels for the marker legend.
 #' @param ... other parameters in \code{\link[graphics]{plot}}.
 #' @importFrom wordcloud textplot
@@ -32,7 +33,7 @@
 
 markerScatter = function(expr, log =FALSE, samples, cate.gene, markers = NULL, pch = 19,
                          cex = 0.5, col = NULL, xlab = NULL, ylab = NULL, main = NULL,
-                         add.line =TRUE, legend.labels = NULL,...){
+                         add.line =TRUE,text.cex = 1, legend.labels = NULL,...){
   if(log){
     expr = log(expr+2,base = 2)
   }
@@ -95,11 +96,11 @@ markerScatter = function(expr, log =FALSE, samples, cate.gene, markers = NULL, p
     expr.marker = expr.selec.all[rownames(expr.selec.all) %in% markers,]
     if(length(expr.marker) != 0){
       if(length(expr.marker) == 2){
-        text(expr.marker[,1],expr.marker[,2],rownames(expr.marker))
+        text(expr.marker[,1],expr.marker[,2],rownames(expr.marker), cex = text.cex)
       }
       else{
         textplot(expr.marker[,1],expr.marker[,2],
-                 rownames(expr.marker), new=FALSE)
+                 rownames(expr.marker), new=FALSE,cex = text.cex)
       }
     }
   }
