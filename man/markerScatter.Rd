@@ -5,7 +5,7 @@
 \title{Scatter Plot for Gene Expression}
 \usage{
 markerScatter(expr, log = FALSE, samples, cate.gene, markers, pch = 19, cex = 0.5,
-col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE, legend.labels = NULL,
+col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE,text.cex = 1, legend.labels = NULL,
 ...  )
 }
 \arguments{
@@ -22,6 +22,8 @@ col = NULL, xlab = NULL, ylab = NULL, main = NULL, add.line = TRUE, legend.label
 \item{pch, cex, col, xlab, ylab, main}{plot parameters, see details in \code{\link[graphics]{par}}.}
 
 \item{add.line}{logical to determine if the linear model fitting line is added on the figure.}
+
+\item{text.cex}{font size for the text on \code{markers}, see details in \code{\link[graphics]{text}}.}
 
 \item{legend.labels}{vector of labels for the marker legend.}
 
