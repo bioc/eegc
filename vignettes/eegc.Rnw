@@ -14,7 +14,6 @@
 \usepackage{multirow}
 \usepackage[flushleft]{threeparttable}
 \usepackage{pifont}
-\usepackage{chngpage}
 \usepackage[singlelinecheck=false]{caption}
 
 <<knitr, echo=FALSE, results="hide">>=
