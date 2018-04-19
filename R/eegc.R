@@ -13,7 +13,7 @@
 #' @importFrom pheatmap pheatmap
 #' @importFrom edgeR DGEList calcNormFactors
 #' @importFrom DESeq2 DESeqDataSetFromMatrix DESeq
-#' @importFrom clusterProfiler bitr enrichKEGG enrichGO plotGOgraph plot
+#' @importFrom clusterProfiler bitr enrichKEGG enrichGO plotGOgraph
 #' @importFrom AnnotationDbi keytypes
 NULL
 
