@@ -314,13 +314,6 @@ heatmaptable = heatmapPlot(goenrich, GO = TRUE, top = 5, filter = FALSE,
 \label{fig:heatmapPlot}
 \end{figure}
 
-A GO tree graph plot can be applied to show the enriched GO terms by calling the \Rfunction{plotGOgraph} from \Biocpkg{clusterProfiler} package.
-
-<<GOgraph, eval = FALSE, echo= FALSE>>=
-# plot the GOgraph using the function in 'clusterProfiler'
-plotGOgraph(inactive)
-@
-
 This analysis helps to evaluate the engineered cells at the functional level by identifying the non-activated functions that play important roles in primary cells but, being enriched in the \emph{Inactive} genes categories, lack in the engineered cells.
 
 \section{Cell/Tissue-specific Enrichment Analysis}
