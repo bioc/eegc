@@ -79,9 +79,6 @@ diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c(
     expr = expr.comb2[[i]]
     n = n.comb[[i]]
     if(method =="limma"){
-      comp = factor(c(rep("control",n[1]),rep("treat",n[2])))
-      design = model.matrix(~0+comp)
-      colnames(design)=c("control","treat")
       if(array){
         expr = log(expr+1,base =2)
       }
@@ -96,6 +93,9 @@ diffGene = function(expr, array= TRUE, fpkm = FALSE, counts = FALSE, method = c(
         expr = v
       }
 
+      comp = factor(c(rep("control",n[1]),rep("treat",n[2])))
+      design = model.matrix(~0+comp)
+      colnames(design)=c("control","treat")
       fit <- lmFit(expr, design)
       contrast.matrix = makeContrasts(treat-control,levels=design)
       fit2= contrasts.fit(fit,contrast.matrix)

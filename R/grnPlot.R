@@ -78,11 +78,11 @@ grnPlot = function(grn.data, cate.gene, filter = TRUE, nodes = NULL, centrality.
     vertex.label = V(grn)$name
   }
   plot(grn,layout=l,
-       vertex.label.dist = vertex.label.dist,
-       vertex.label.color = vertex.label.color,
-       vertex.label.font = vertex.label.font,
-       vertex.label = vertex.label,
-       vertex.label.cex= vertex.label.cex,
+       vertex.label.dist = vertex.label.dist,			#puts the name labels slightly off the dots
+       vertex.label.color = vertex.label.color,		#the color of the name labels
+       vertex.label.font = vertex.label.font,			#the font of the name labels
+       vertex.label = vertex.label,		#specifies the lables of the vertices. in this case the 'name' attribute is used
+       vertex.label.cex= vertex.label.cex, #specifies the size of the font of the labels
        edge.arrow.size = edge.arrow.size,
        edge.color = edge.color,...)
   if(is.null(main)){
