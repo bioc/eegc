@@ -2,7 +2,7 @@ Package: eegc
 Type: Package
 Title: Engineering Evaluation by Gene Categorization  (eegc)
 Version: 1.5.1
-Date: 2018-05-07
+Date: 2018-05-09
 Author: Xiaoyuan Zhou, Guofeng Meng, Christine Nardini, Hongkang Mei
 Maintainer: Xiaoyuan Zhou <zhouxiaoyuan@picb.ac.cn>
 Description: This package has been developed to evaluate cellular
@@ -19,7 +19,7 @@ Description: This package has been developed to evaluate cellular
     have induced and primary reference cell showing overlapping profiles, both very
     different from the original cells.
 VignetteBuilder: knitr
-Depends:R (>= 3.3.0)
+Depends:R (>= 3.4.0)
 Imports: R.utils, gplots, sna, wordcloud, igraph, pheatmap, edgeR,
     DESeq2, clusterProfiler, S4Vectors, ggplot2, org.Hs.eg.db, org.Mm.eg.db,
     limma, DOSE, AnnotationDbi
