@@ -77,8 +77,9 @@ This is namely obtained with 3 outputs offered to the package users, in addition
 When \eegc{} is installed from \Bioconductor{}, all dependencies are installed.
 
 <<install_eegc, eval=FALSE>>=
-source("http://bioconductor.org/biocLite.R")
-biocLite("eegc")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("eegc")
 @
 
 Then package is loaded by:
