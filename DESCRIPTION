@@ -1,9 +1,13 @@
 Package: eegc
 Type: Package
-<<<<<<< HEAD
 Title: Engineering Evaluation by Gene Categorization  (eegc)
-Version: 1.5.2
+<<<<<<< HEAD
+Version: 1.8.1
 Date: 2018-11-30
+=======
+Version: 1.9.0
+Date: 2018-05-17
+>>>>>>> a3734ad49a53ddb5a01bee8aef950967dc6dc421
 Author: Xiaoyuan Zhou, Guofeng Meng, Christine Nardini, Hongkang Mei
 Maintainer: Xiaoyuan Zhou <zhouxiaoyuan@picb.ac.cn>
 Description: This package has been developed to evaluate cellular
@@ -27,7 +31,6 @@ Imports: R.utils, gplots, sna, wordcloud, igraph, pheatmap, edgeR,
 Suggests: knitr
 biocViews: ImmunoOncology, Microarray, Sequencing, RNASeq, DifferentialExpression, GeneRegulation,
     GeneSetEnrichment, GeneExpression, GeneTarget
->>>>>>> upstream/master
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
